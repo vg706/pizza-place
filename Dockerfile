@@ -1,17 +1,17 @@
 FROM node:18
 
 #Create a app directory
-WORKDIR /app/
+WORKDIR /app/ /app/produtos
 
 #Install app dependencies
-COPY package*.json /app/
-
-#Bundle app source
-# COPY . .
-COPY . /app/
+COPY package*.json ./
 
 #Run npm install
 RUN npm install
+
+#Bundle app source
+# COPY . .
+COPY . .
 
 EXPOSE 8080
 
