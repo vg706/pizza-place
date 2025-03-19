@@ -10,12 +10,6 @@ const __dirname = path.dirname(__filename);
 // app.use(express.static(path.join(__dirname, './')));
 
 app.get ("/", (req, res) => {
-    // res.json({message: "App is running on docker container"});
-    res.sendFile(path.join(__dirname, 'home', 'index.html'));
-});
-
-app.get ("/produtos", (req, res) => {
-    // res.json({message: "App is running on docker container"});
     res.sendFile(path.join(__dirname, 'produtos', 'index.html'));
 });
 
