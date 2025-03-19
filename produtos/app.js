@@ -1,11 +1,19 @@
+import Parse from 'parse/node.js';
 
-function create() {
-const Person = new Parse.Object("Person");
+Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
+Parse.serverURL = 'https://parseapi.back4app.com';
 
-Person.set("name", "Jon Snow");
-Person.set("age", 30);
-
-Person.save()
-  .then(() => console.log("Successfully connected to Back4app!"))
-  .catch((error) => console.error("Connection error:", error.message));
+async function saveNewPlayer() {
+    const player = new Parse.Object('Player');
+    player.set('name', 'Alex');
+    player.set('yearOfBirth', 1997);
+    player.set('emailContact', 'alex@email.com');
+    player.set('attributes', ['fast', 'good endurance']);
+    
+    try {
+        const result = await player.save();
+        console.log('New object created with ID:', result.id);
+    } catch (error) {
+        console.error('Failed to save object:', error.message);
+    }
 }
