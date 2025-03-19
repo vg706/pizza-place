@@ -11,9 +11,13 @@ const __dirname = path.dirname(__filename);
 
 app.get ("/", (req, res) => {
     // res.json({message: "App is running on docker container"});
-    res.sendFile(path.join(__dirname, 'produtos', 'index.html'));
+    res.sendFile(path.join(__dirname, 'home', 'index.html'));
 });
 
+app.get ("/produtos", (req, res) => {
+    // res.json({message: "App is running on docker container"});
+    res.sendFile(path.join(__dirname, 'produtos', 'index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`App running on ${PORT}`);
