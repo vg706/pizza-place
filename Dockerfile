@@ -1,7 +1,7 @@
 FROM node:18
 
 #Create a app directory
-WORKDIR /app/ /app/produtos
+WORKDIR /app/
 
 #Install app dependencies
 COPY package*.json ./
@@ -15,4 +15,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
