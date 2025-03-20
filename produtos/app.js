@@ -1,4 +1,4 @@
-import Parse from 'parse/node.js';
+import * as Parse from 'parse/node.js';
 
 Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
 Parse.serverURL = 'https://parseapi.back4app.com';
