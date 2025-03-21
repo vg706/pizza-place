@@ -21,3 +21,18 @@ app.listen(PORT, () => {
 });
 
 app.use(express.static(path.join(__dirname, 'produtos')));
+
+// async function create() {
+//     const player = new Parse.Object('Player');
+//     player.set('name', 'Alex');
+//     player.set('yearOfBirth', 1997);
+//     player.set('emailContact', 'alex@email.com');
+//     player.set('attributes', ['fast', 'good endurance']);
+    
+//     try {
+//         const result = await player.save();
+//         console.log('New object created with ID:', result.id);
+//     } catch (error) {
+//         console.error('Failed to save object:', error.message);
+//     }
+// }

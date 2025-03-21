@@ -1,5 +1,3 @@
-import * as Parse from 'parse/node.js';
-
 Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
 Parse.serverURL = 'https://parseapi.back4app.com';
 
@@ -17,3 +15,4 @@ async function create() {
         console.error('Failed to save object:', error.message);
     }
 }
+document.getElementById("createButton").addEventListener("click", async function () {create();});
