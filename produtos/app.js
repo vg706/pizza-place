@@ -1,5 +1,5 @@
 // Configuração do Parse
-Parse.initialize("SEU_APP_ID", "SEU_JS_KEY");
+Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
 Parse.serverURL = 'https://parseapi.back4app.com';
 
 // Função de Login de Funcionário
