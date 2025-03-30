@@ -1,4 +1,4 @@
-// Configuração do Parse (mantenha o que já existe)
+// Configuração do Parse
 Parse.initialize("SEU_APP_ID", "SEU_JS_KEY");
 Parse.serverURL = 'https://parseapi.back4app.com';
 
