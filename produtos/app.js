@@ -121,3 +121,130 @@ document.getElementById('loginClienteBtn').addEventListener('click', async () =>
         alert('Erro no login: ' + error.message);
     }
 });
+
+// Funções para Registro de Pedidos
+async function registrarPedido(clienteId, itens, valorTotal, endereco) {
+    try {
+        const Pedido = Parse.Object.extend('Pedido');
+        const novoPedido = new Pedido();
+        
+        // Referência ao cliente
+        const Cliente = Parse.Object.extend('Cliente');
+        const cliente = new Cliente();
+        cliente.id = clienteId;
+        
+        novoPedido.set('clienteId', cliente);
+        novoPedido.set('itens', itens);
+        novoPedido.set('valorTotal', valorTotal);
+        novoPedido.set('status', 'Pendente'); // Status inicial
+        novoPedido.set('endereco', endereco);
+        novoPedido.set('dataPedido', new Date());
+        
+        const pedidoSalvo = await novoPedido.save();
+        console.log('Pedido registrado com sucesso');
+        return pedidoSalvo;
+    } catch (error) {
+        console.error('Erro no registro de pedido:', error);
+        throw error;
+    }
+}
+
+// Buscar pedidos de um cliente
+async function buscarPedidosCliente(clienteId) {
+    try {
+        const Pedido = Parse.Object.extend('Pedido');
+        const query = new Parse.Query(Pedido);
+        
+        // Referência ao cliente
+        const Cliente = Parse.Object.extend('Cliente');
+        const cliente = new Cliente();
+        cliente.id = clienteId;
+        
+        query.equalTo('clienteId', cliente);
+        query.descending('dataPedido'); // Ordena do mais recente para o mais antigo
+        
+        const pedidos = await query.find();
+        console.log(`Encontrados ${pedidos.length} pedidos`);
+        return pedidos;
+    } catch (error) {
+        console.error('Erro ao buscar pedidos:', error);
+        throw error;
+    }
+}
+
+// Atualizar status do pedido
+async function atualizarStatusPedido(pedidoId, novoStatus) {
+    try {
+        const Pedido = Parse.Object.extend('Pedido');
+        const query = new Parse.Query(Pedido);
+        
+        const pedido = await query.get(pedidoId);
+        pedido.set('status', novoStatus);
+        
+        const pedidoAtualizado = await pedido.save();
+        console.log(`Status do pedido atualizado para: ${novoStatus}`);
+        return pedidoAtualizado;
+    } catch (error) {
+        console.error('Erro ao atualizar status do pedido:', error);
+        throw error;
+    }
+}
+
+// Event Listener para registro de pedido
+document.getElementById('registrarPedidoBtn').addEventListener('click', async () => {
+    const clienteId = document.getElementById('clienteId').value;
+    
+    // Exemplo de itens
+    const itens = [
+        { id: 'prod1', nome: 'Pizza Calabresa', quantidade: 1, preco: 45.90 },
+        { id: 'prod2', nome: 'Refrigerante 2L', quantidade: 1, preco: 12.00 }
+    ];
+    
+    const valorTotal = itens.reduce((total, item) => total + (item.quantidade * item.preco), 0);
+    const endereco = document.getElementById('endereco').value;
+    
+    try {
+        const pedido = await registrarPedido(clienteId, itens, valorTotal, endereco);
+        alert('Pedido registrado com sucesso! ID: ' + pedido.id);
+        // Limpar formulário ou redirecionar
+    } catch (error) {
+        alert('Erro ao registrar pedido: ' + error.message);
+    }
+});
+
+// Event Listener para listar pedidos de um cliente
+document.getElementById('listarPedidosBtn').addEventListener('click', async () => {
+    const clienteId = document.getElementById('clienteIdBusca').value;
+    
+    try {
+        const pedidos = await buscarPedidosCliente(clienteId);
+        const listaPedidos = document.getElementById('listaPedidos');
+        listaPedidos.innerHTML = '';
+        
+        pedidos.forEach(pedido => {
+            const li = document.createElement('li');
+            li.textContent = `Pedido #${pedido.id} - Status: ${pedido.get('status')} - Valor: R$ ${pedido.get('valorTotal').toFixed(2)}`;
+            
+            // Adicionar botões para atualizar status
+            const btnPreparando = document.createElement('button');
+            btnPreparando.textContent = 'Em Preparo';
+            btnPreparando.onclick = () => atualizarStatusPedido(pedido.id, 'Em preparo');
+            
+            const btnEntrega = document.createElement('button');
+            btnEntrega.textContent = 'Em Entrega';
+            btnEntrega.onclick = () => atualizarStatusPedido(pedido.id, 'Em entrega');
+            
+            const btnEntregue = document.createElement('button');
+            btnEntregue.textContent = 'Entregue';
+            btnEntregue.onclick = () => atualizarStatusPedido(pedido.id, 'Entregue');
+            
+            li.appendChild(btnPreparando);
+            li.appendChild(btnEntrega);
+            li.appendChild(btnEntregue);
+            
+            listaPedidos.appendChild(li);
+        });
+    } catch (error) {
+        alert('Erro ao listar pedidos: ' + error.message);
+    }
+});
