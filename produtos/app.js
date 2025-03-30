@@ -75,7 +75,6 @@ async function loginCliente(email, senha) {
             throw new Error('Cliente não encontrado');
         }
         
-        // Aqui você normalmente verificaria a senha de forma segura
         if (cliente.get('senha') !== senha) {
             throw new Error('Senha incorreta');
         }
