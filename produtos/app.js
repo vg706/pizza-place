@@ -15,7 +15,6 @@ async function loginFuncionario(email, senha) {
             throw new Error('Funcionário não encontrado');
         }
         
-        // Aqui você normalmente verificaria a senha de forma segura
         if (funcionario.get('senha') !== senha) {
             throw new Error('Senha incorreta');
         }
