@@ -1,18 +1,64 @@
-Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
+// Configuração do Parse (mantenha o que já existe)
+Parse.initialize("SEU_APP_ID", "SEU_JS_KEY");
 Parse.serverURL = 'https://parseapi.back4app.com';
 
-async function create() {
-    const player = new Parse.Object('Player');
-    player.set('name', 'Alex');
-    player.set('yearOfBirth', 1997);
-    player.set('emailContact', 'alex@email.com');
-    player.set('attributes', ['fast', 'good endurance']);
-    
+// Função de Login de Funcionário
+async function loginFuncionario(email, senha) {
     try {
-        const result = await player.save();
-        console.log('New object created with ID:', result.id);
+        const Funcionario = Parse.Object.extend('Funcionario');
+        const query = new Parse.Query(Funcionario);
+        query.equalTo('email', email);
+        
+        const funcionario = await query.first();
+        
+        if (!funcionario) {
+            throw new Error('Funcionário não encontrado');
+        }
+        
+        // Aqui você normalmente verificaria a senha de forma segura
+        if (funcionario.get('senha') !== senha) {
+            throw new Error('Senha incorreta');
+        }
+        
+        console.log('Login de Funcionário bem-sucedido');
+        return funcionario;
     } catch (error) {
-        console.error('Failed to save object:', error.message);
+        console.error('Erro no login de funcionário:', error);
+        throw error;
     }
 }
-document.getElementById("createButton").addEventListener("click", async function () {create();});
+
+// Função de Registro de Funcionário
+async function registrarFuncionario(nome, email, senha, cargo) {
+    try {
+        const Funcionario = Parse.Object.extend('Funcionario');
+        const novoFuncionario = new Funcionario();
+        
+        novoFuncionario.set('nome', nome);
+        novoFuncionario.set('email', email);
+        novoFuncionario.set('senha', senha); 
+        novoFuncionario.set('cargo', cargo);
+        
+        const funcionarioSalvo = await novoFuncionario.save();
+        console.log('Funcionário registrado com sucesso');
+        return funcionarioSalvo;
+    } catch (error) {
+        console.error('Erro no registro de funcionário:', error);
+        throw error;
+    }
+}
+
+// Event Listener para login de funcionário
+document.getElementById('loginFuncionarioBtn').addEventListener('click', async () => {
+    const email = document.getElementById('emailFuncionario').value;
+    const senha = document.getElementById('senhaFuncionario').value;
+    
+    try {
+        const funcionario = await loginFuncionario(email, senha);
+        // Redirecionar ou mostrar painel do funcionário
+        alert('Login de funcionário bem-sucedido!');
+    } catch (error) {
+        // Mostrar mensagem de erro
+        alert('Erro no login: ' + error.message);
+    }
+});
