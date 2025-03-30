@@ -61,3 +61,64 @@ document.getElementById('loginFuncionarioBtn').addEventListener('click', async (
         alert('Erro no login: ' + error.message);
     }
 });
+
+// Função de Login de Cliente
+async function loginCliente(email, senha) {
+    try {
+        const Cliente = Parse.Object.extend('Cliente');
+        const query = new Parse.Query(Cliente);
+        query.equalTo('email', email);
+        
+        const cliente = await query.first();
+        
+        if (!cliente) {
+            throw new Error('Cliente não encontrado');
+        }
+        
+        // Aqui você normalmente verificaria a senha de forma segura
+        if (cliente.get('senha') !== senha) {
+            throw new Error('Senha incorreta');
+        }
+        
+        console.log('Login de Cliente bem-sucedido');
+        return cliente;
+    } catch (error) {
+        console.error('Erro no login de cliente:', error);
+        throw error;
+    }
+}
+
+// Função de Registro de Cliente
+async function registrarCliente(nome, email, senha, telefone) {
+    try {
+        const Cliente = Parse.Object.extend('Cliente');
+        const novoCliente = new Cliente();
+        
+        novoCliente.set('nome', nome);
+        novoCliente.set('email', email);
+        novoCliente.set('senha', senha); 
+        novoCliente.set('telefone', telefone);
+        
+        const clienteSalvo = await novoCliente.save();
+        console.log('Cliente registrado com sucesso');
+        return clienteSalvo;
+    } catch (error) {
+        console.error('Erro no registro de cliente:', error);
+        throw error;
+    }
+}
+
+// Event Listener para login de cliente
+document.getElementById('loginClienteBtn').addEventListener('click', async () => {
+    const email = document.getElementById('emailCliente').value;
+    const senha = document.getElementById('senhaCliente').value;
+    
+    try {
+        const cliente = await loginCliente(email, senha);
+        // Redirecionar ou mostrar painel do cliente
+        alert('Login de cliente bem-sucedido!');
+    } catch (error) {
+        // Mostrar mensagem de erro
+        alert('Erro no login: ' + error.message);
+    }
+});
