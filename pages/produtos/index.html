@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <title>Pizza Place</title>
+    <title>Pizza Place - Cardápio</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #050844;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Pizza-Place</a>
+            <a class="navbar-brand" href="../../index.html">Pizza-Place</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,82 +25,62 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../login-funcionario/index.html">Gestão</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="../produtos/index.html">Cardápio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pedidos-registro/index.html">Pedidos</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div>
-        <h2>Cardápio de pizzas: </h2>
-        <ul id="listaPizzas"></ul>
-    </div>
-    <div>
-        <h2>Cardápio de bebidas: </h2>
-        <ul id="listaBebidas"></ul>
-    </div>
-    <!-- <div id="loginFuncionario">
-        <h2>Login Funcionário</h2>
-        <input type="email" id="emailFuncionario" placeholder="E-mail">
-        <input type="password" id="senhaFuncionario" placeholder="Senha">
-        <button id="loginFuncionarioBtn">Entrar</button>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Cardápio de Pizzas</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul id="listaPizzas" class="list-group pizza-list">
+                            <!-- Pizzas serão inseridas aqui pelo JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Cardápio de Bebidas</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul id="listaBebidas" class="list-group bebida-list">
+                            <!-- Bebidas serão inseridas aqui pelo JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <a href="../pedidos-registro/index.html" class="btn btn-success">Ver Meus Pedidos</a>
+                <a href="../../index.html" class="btn btn-secondary">Voltar para Página Inicial</a>
+            </div>
+        </div>
     </div>
 
-    <div id="loginCliente">
-        <h2>Login Cliente</h2>
-        <input type="email" id="emailCliente" placeholder="E-mail">
-        <input type="password" id="senhaCliente" placeholder="Senha">
-        <button id="loginClienteBtn">Entrar</button>
-    </div>
+    <footer class="mt-5 py-3 text-center bg-dark text-white">
+        <div class="container">
+            <p>&copy; 2025 Pizza-Place. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
-    <div id="registroPedidos">
-        <h2>Registro de Pedido</h2>
-        <div>
-            <label for="clienteId">ID do Cliente:</label>
-            <input type="text" id="clienteId" placeholder="ID do cliente">
-        </div>
-        <div>
-            <label for="endereco">Endereço de Entrega:</label>
-            <input type="text" id="endereco" placeholder="Endereço completo">
-        </div>
-        <button id="registrarPedidoBtn">Registrar Pedido</button>
-    </div>
-    
-    <div id="gerenciamentoPedidos">
-        <h2>Gerenciamento de Pedidos</h2>
-        <div>
-            <label for="clienteIdBusca">Buscar Pedidos do Cliente:</label>
-            <input type="text" id="clienteIdBusca" placeholder="ID do cliente">
-            <button id="listarPedidosBtn">Buscar Pedidos</button>
-        </div>
-        <ul id="listaPedidos"></ul>
-    </div> -->
-
-    <!-- <div id="gerenciamentoProdutos">
-        <h2>Gerenciamento de Produtos</h2>
-        
-        <form id="formProduto">
-            <h3>Cadastrar Novo Produto</h3>
-            <div>
-                <label for="nomeProduto">Nome:</label>
-                <input type="text" id="nomeProduto" required>
-            </div>
-            <div>
-                <label for="precoProduto">Preço (R$):</label>
-                <input type="number" id="precoProduto" step="0.01" min="0" required>
-            </div>
-            <div>
-                <label for="quantidadeProduto">Quantidade em Estoque:</label>
-                <input type="number" id="quantidadeProduto" min="0" required>
-            </div>
-            <button type="button" id="registrarProdutoBtn">Cadastrar Produto</button>
-        </form>
-        
-        <div>
-            <h3>Produtos em Estoque</h3>
-            <button id="listarProdutosBtn">Mostrar Produtos</button>
-            <ul id="listaProdutos"></ul>
-        </div>
-    </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <script type="module" src="../produtos/produto.js"></script>
 </body>
-<script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-<script type="module" src="../produtos/produto.js"></script>
 </html>

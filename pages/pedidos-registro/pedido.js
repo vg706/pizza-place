@@ -1,7 +1,4 @@
 // Pedido.js
-// import { parseConfig } from '../../parseConfig';
-
-// parseConfig();
 Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
 Parse.serverURL = 'https://parseapi.back4app.com';
 
@@ -9,13 +6,29 @@ const pedidosFeitos = document.getElementById("pedidos-feitos");
 
 async function listarPedidos() {
     const Pedido = Parse.Object.extend("Pedido");
-        const query = new Parse.Query(Pedido);
+    const query = new Parse.Query(Pedido);
 
-        query.include("nomePizzaPedido");
-        query.include("nomeBebidaPedido");
+    query.include("nomePizzaPedido");
+    query.include("nomeBebidaPedido");
 
     try {
         const pedidos = await query.find();
+        
+        if (pedidos.length === 0) {
+            const div = document.createElement("div");
+            div.className = "col-12";
+            div.innerHTML = `
+                <div class="card">
+                    <div class="card-body text-center">
+                        <p>Você ainda não tem pedidos registrados.</p>
+                        <a href="../produtos/index.html" class="btn btn-primary">Fazer um pedido</a>
+                    </div>
+                </div>
+            `;
+            pedidosFeitos.appendChild(div);
+            return;
+        }
+        
         pedidos.forEach(element => {
             const pizza = element.get("nomePizzaPedido");
             const nomePizza = pizza.get("nomeProduto");
@@ -24,63 +37,75 @@ async function listarPedidos() {
             const bebida = element.get("nomeBebidaPedido");
             const nomeBebida = bebida.get("nomeBebida");
             const valorBebida = bebida.get("valorBebida");
-
+            
+            const valorTotal = valorPizza + valorBebida;
+            const status = element.get("status") || "Pendente";
+            
+            // Criar um card para cada pedido
             const div = document.createElement("div");
-            div.innerHTML = `<h3> ${nomePizza} + ${nomeBebida}</h3><p><h4>Valor: ${valorPizza + valorBebida}</h4></p>`;
+            div.className = "col";
+            div.innerHTML = `
+                <div class="card h-100">
+                    <div class="card-header ${getStatusClass(status)}">
+                        <h5 class="card-title mb-0 text-white">Pedido #${element.id.substring(0, 8)}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${nomePizza}</h5>
+                        <p class="card-text">Pizza: R$ ${valorPizza.toFixed(2)}</p>
+                        <h5 class="card-title">${nomeBebida}</h5>
+                        <p class="card-text">Bebida: R$ ${valorBebida.toFixed(2)}</p>
+                        <hr>
+                        <p class="card-text fw-bold">Valor Total: R$ ${valorTotal.toFixed(2)}</p>
+                        <p class="card-text">Status: <span class="badge ${getStatusClass(status)}">${status}</span></p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Data do pedido: ${formatarData(element.createdAt)}</small>
+                    </div>
+                </div>
+            `;
             pedidosFeitos.appendChild(div);
         });
     } catch (error) {
         console.error('Erro ao listar produtos:', error);
-        throw error;
+        const div = document.createElement("div");
+        div.className = "col-12";
+        div.innerHTML = `
+            <div class="alert alert-danger" role="alert">
+                Erro ao carregar pedidos. Por favor, tente novamente mais tarde.
+            </div>
+        `;
+        pedidosFeitos.appendChild(div);
     }
 };
- 
-// export const registrarPedido = async (clienteId, itens, valorTotal, endereco) => {
-//     try {
-//         const Pedido = Parse.Object.extend('Pedido');
-//         const novoPedido = new Pedido();
-        
-//         const Cliente = Parse.Object.extend('Cliente');
-//         const cliente = new Cliente();
-//         cliente.id = clienteId;
-        
-//         novoPedido.set('clienteId', cliente);
-//         novoPedido.set('itens', itens);
-//         novoPedido.set('valorTotal', valorTotal);
-//         novoPedido.set('status', 'Pendente');
-//         novoPedido.set('endereco', endereco);
-//         novoPedido.set('dataPedido', new Date());
-        
-//         const pedidoSalvo = await novoPedido.save();
-//         console.log('Pedido registrado com sucesso');
-//         return pedidoSalvo;
-//     } catch (error) {
-//         console.error('Erro no registro de pedido:', error);
-//         throw error;
-//     }
-// };
 
+// Função para obter a classe de cor com base no status
+function getStatusClass(status) {
+    switch (status.toLowerCase()) {
+        case 'pendente':
+            return 'bg-warning';
+        case 'em preparo':
+            return 'bg-info';
+        case 'saiu para entrega':
+            return 'bg-primary';
+        case 'entregue':
+            return 'bg-success';
+        case 'cancelado':
+            return 'bg-danger';
+        default:
+            return 'bg-secondary';
+    }
+}
 
-// export const buscarPedidosCliente = async (clienteId) => {
-//     try {
-//         const Pedido = Parse.Object.extend('Pedido');
-//         const query = new Parse.Query(Pedido);
-        
-//         const Cliente = Parse.Object.extend('Cliente');
-//         const cliente = new Cliente();
-//         cliente.id = clienteId;
-        
-//         query.equalTo('clienteId', cliente);
-//         query.descending('dataPedido');
-        
-//         const pedidos = await query.find();
-//         console.log(`Encontrados ${pedidos.length} pedidos`);
-//         return pedidos;
-//     } catch (error) {
-//         console.error('Erro ao buscar pedidos:', error);
-//         throw error;
-//     }
-// };
+// Função para formatar a data
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
 
 export const atualizarStatusPedido = async (pedidoId, novoStatus) => {
     try {

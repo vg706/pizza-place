@@ -1,7 +1,4 @@
 // Produto.js
-// import { parseConfig } from '../parseConfig.js';
-
-// parseConfig();
 Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
 Parse.serverURL = 'https://parseapi.back4app.com';
 
@@ -34,13 +31,35 @@ async function listarPizzas() {
         const pizzas = await query.find();
 
         pizzas.forEach((element) => {
-            const div = document.createElement("div");
-            div.textContent = `${element.get("nomeProduto")}`;
-            listaPizzas.appendChild(div);
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+            
+            const nomePizza = element.get("nomeProduto") || "Pizza sem nome";
+            const precoPizza = element.get("precoProduto") || 0;
+            
+            listItem.innerHTML = `
+                <div>
+                    <h5 class="mb-1">${nomePizza}</h5>
+                    <p class="mb-0">R$ ${precoPizza.toFixed(2)}</p>
+                </div>
+                <button class="btn btn-sm btn-primary adicionar-pizza" data-id="${element.id}">Adicionar</button>
+            `;
+            listaPizzas.appendChild(listItem);
         });
+        
+        // Se não houver pizzas, mostrar mensagem
+        if (pizzas.length === 0) {
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item";
+            listItem.textContent = "Nenhuma pizza disponível no momento.";
+            listaPizzas.appendChild(listItem);
+        }
     } catch (error) {
         console.error('Erro ao listar produtos:', error);
-        throw error;
+        const listItem = document.createElement("li");
+        listItem.className = "list-group-item text-danger";
+        listItem.textContent = "Erro ao carregar pizzas. Por favor, tente novamente mais tarde.";
+        listaPizzas.appendChild(listItem);
     }
 };
 
@@ -51,13 +70,35 @@ async function listarBebidas() {
         const bebidas = await query.find();
 
         bebidas.forEach((element) => {
-            const div = document.createElement("div");
-            div.textContent = `${element.get("nomeBebida")}`;
-            listaBebidas.appendChild(div);
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item d-flex justify-content-between align-items-center";
+            
+            const nomeBebida = element.get("nomeBebida") || "Bebida sem nome";
+            const valorBebida = element.get("valorBebida") || 0;
+            
+            listItem.innerHTML = `
+                <div>
+                    <h5 class="mb-1">${nomeBebida}</h5>
+                    <p class="mb-0">R$ ${valorBebida.toFixed(2)}</p>
+                </div>
+                <button class="btn btn-sm btn-primary adicionar-bebida" data-id="${element.id}">Adicionar</button>
+            `;
+            listaBebidas.appendChild(listItem);
         });
+        
+        // Se não houver bebidas, mostrar mensagem
+        if (bebidas.length === 0) {
+            const listItem = document.createElement("li");
+            listItem.className = "list-group-item";
+            listItem.textContent = "Nenhuma bebida disponível no momento.";
+            listaBebidas.appendChild(listItem);
+        }
     } catch (error) {
         console.error('Erro ao listar bebidas:', error);
-        throw error;
+        const listItem = document.createElement("li");
+        listItem.className = "list-group-item text-danger";
+        listItem.textContent = "Erro ao carregar bebidas. Por favor, tente novamente mais tarde.";
+        listaBebidas.appendChild(listItem);
     }
 };
 

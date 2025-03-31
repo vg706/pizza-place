@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #050844;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Pizza-Place</a>
+            <a class="navbar-brand" href="../../index.html">Pizza-Place</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -25,16 +25,43 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../login-funcionario/index.html">Gestão</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../produtos/index.html">Cardápio</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="../pedidos-registro/index.html">Pedidos</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <h1>Pedidos feitos:</h1>
-    <div id="pedidos-feitos">
+    
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">Pedidos feitos:</h1>
+                <div id="pedidos-feitos" class="row row-cols-1 row-cols-md-2 g-4">
+                    <!-- Os pedidos serão inseridos aqui pelo JavaScript -->
+                </div>
+            </div>
+        </div>
 
+        <div class="row mt-4">
+            <div class="col-12">
+                <a href="../produtos/index.html" class="btn btn-primary">Fazer Novo Pedido</a>
+                <a href="../../index.html" class="btn btn-secondary">Voltar para Página Inicial</a>
+            </div>
+        </div>
     </div>
     
+    <footer class="mt-5 py-3 text-center bg-dark text-white">
+        <div class="container">
+            <p>&copy; 2025 Pizza-Place. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <script type="module" src="../pedidos-registro/pedido.js"></script>
 </body>
-<script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-<script type="module" src="../pedidos-registro/pedido.js"></script>
 </html>
