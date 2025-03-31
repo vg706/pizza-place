@@ -42,7 +42,36 @@
         </div>
         <ul id="listaPedidos"></ul>
     </div>
-</body>
+
+    <div id="gerenciamentoProdutos">
+        <h2>Gerenciamento de Produtos</h2>
+        
+        <form id="formProduto">
+            <h3>Cadastrar Novo Produto</h3>
+            <div>
+                <label for="nomeProduto">Nome:</label>
+                <input type="text" id="nomeProduto" required>
+            </div>
+            <div>
+                <label for="precoProduto">Preço (R$):</label>
+                <input type="number" id="precoProduto" step="0.01" min="0" required>
+            </div>
+            <div>
+                <label for="quantidadeProduto">Quantidade em Estoque:</label>
+                <input type="number" id="quantidadeProduto" min="0" required>
+            </div>
+            <button type="button" id="registrarProdutoBtn">Cadastrar Produto</button>
+        </form>
+        
+        <div>
+            <h3>Produtos em Estoque</h3>
+            <button id="listarProdutosBtn">Mostrar Produtos</button>
+            <ul id="listaProdutos"></ul>
+        </div>
+    </div>
+
 <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
 <script src="app.js"></script>
+<script src="produtos/produtos.js"></script>
+</body>
 </html>

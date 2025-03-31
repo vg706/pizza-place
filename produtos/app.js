@@ -248,3 +248,98 @@ document.getElementById('listarPedidosBtn').addEventListener('click', async () =
         alert('Erro ao listar pedidos: ' + error.message);
     }
 });
+
+// Função para registrar produto
+async function registrarProduto(nome, preco, quantidade) {
+    try {
+        const Produto = Parse.Object.extend('Produto');
+        const novoProduto = new Produto();
+        
+        novoProduto.set('nome', nome);
+        novoProduto.set('preco', preco);
+        novoProduto.set('quantidade', quantidade);
+        novoProduto.set('disponivel', quantidade > 0);
+        
+        const produtoSalvo = await novoProduto.save();
+        console.log('Produto registrado com sucesso');
+        return produtoSalvo;
+    } catch (error) {
+        console.error('Erro no registro de produto:', error);
+        throw error;
+    }
+}
+
+// Função para listar todos os produtos
+async function listarProdutos() {
+    try {
+        const Produto = Parse.Object.extend('Produto');
+        const query = new Parse.Query(Produto);
+        
+        const produtos = await query.find();
+        console.log(`Encontrados ${produtos.length} produtos`);
+        return produtos;
+    } catch (error) {
+        console.error('Erro ao listar produtos:', error);
+        throw error;
+    }
+}
+
+// Função para atualizar quantidade
+async function atualizarQuantidadeProduto(produtoId, novaQuantidade) {
+    try {
+        const Produto = Parse.Object.extend('Produto');
+        const query = new Parse.Query(Produto);
+        
+        const produto = await query.get(produtoId);
+        produto.set('quantidade', novaQuantidade);
+        produto.set('disponivel', novaQuantidade > 0);
+        
+        const produtoAtualizado = await produto.save();
+        console.log(`Quantidade atualizada para: ${novaQuantidade}`);
+        return produtoAtualizado;
+    } catch (error) {
+        console.error('Erro ao atualizar quantidade:', error);
+        throw error;
+    }
+}
+
+// Eventos 
+document.addEventListener('DOMContentLoaded', () => {
+    // Registrar produto
+    document.getElementById('registrarProdutoBtn')?.addEventListener('click', async () => {
+        const nome = document.getElementById('nomeProduto').value;
+        const preco = parseFloat(document.getElementById('precoProduto').value);
+        const quantidade = parseInt(document.getElementById('quantidadeProduto').value);
+        
+        try {
+            const produto = await registrarProduto(nome, preco, quantidade);
+            alert('Produto registrado com sucesso!');
+            document.getElementById('formProduto').reset();
+            atualizarListaProdutos();
+        } catch (error) {
+            alert('Erro ao registrar produto: ' + error.message);
+        }
+    });
+    
+    // Listar produtos
+    document.getElementById('listarProdutosBtn')?.addEventListener('click', () => {
+        atualizarListaProdutos();
+    });
+});
+
+// Função para atualizar a lista de produtos na interface
+async function atualizarListaProdutos() {
+    try {
+        const produtos = await listarProdutos();
+        const listaProdutos = document.getElementById('listaProdutos');
+        listaProdutos.innerHTML = '';
+        
+        produtos.forEach(produto => {
+            const li = document.createElement('li');
+            li.textContent = `${produto.get('nome')} - R$ ${produto.get('preco').toFixed(2)} - Estoque: ${produto.get('quantidade')} - ${produto.get('disponivel') ? 'Disponível' : 'Indisponível'}`;
+            listaProdutos.appendChild(li);
+        });
+    } catch (error) {
+        alert('Erro ao listar produtos: ' + error.message);
+    }
+}
