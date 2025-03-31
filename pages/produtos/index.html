@@ -6,7 +6,11 @@
     <title>Pizza Place</title>
 </head>
 <body>
-    <div id="loginFuncionario">
+    <div>
+        <!-- <button><a href="/login-cliente/index.html"></a></button> -->
+         <a href="../login-cliente/index.html">Login</a>
+    </div>
+    <!-- <div id="loginFuncionario">
         <h2>Login Funcionário</h2>
         <input type="email" id="emailFuncionario" placeholder="E-mail">
         <input type="password" id="senhaFuncionario" placeholder="Senha">
@@ -41,9 +45,9 @@
             <button id="listarPedidosBtn">Buscar Pedidos</button>
         </div>
         <ul id="listaPedidos"></ul>
-    </div>
+    </div> -->
 
-    <div id="gerenciamentoProdutos">
+    <!-- <div id="gerenciamentoProdutos">
         <h2>Gerenciamento de Produtos</h2>
         
         <form id="formProduto">
@@ -68,13 +72,23 @@
             <button id="listarProdutosBtn">Mostrar Produtos</button>
             <ul id="listaProdutos"></ul>
         </div>
-    </div>
+    </div> -->
 
+    <div>
+        <h2>Cardápio de pizzas: </h2>
+        <!-- <button id="listarProdutosBtn">Mostrar Produtos</button> -->
+        <ul id="listaPizzas"></ul>
+    </div>
+    <div>
+        <h2>Cardápio de bebidas: </h2>
+        <!-- <button id="listarProdutosBtn">Mostrar Produtos</button> -->
+        <ul id="listaBebidas"></ul>
+    </div>
     <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-    <script type="module" src="Funcionario/Funcionario.js"></script>
-    <script type="module" src="Cliente/Cliente.js"></script>
-    <script type="module" src="Pedido/Pedido.js"></script>
-    <script type="module" src="Produto/Produto.js"></script>
-    <script type="module" src="Eventos.js"></script>
+     <!-- <script type="module" src="../cadastro-funcionario/cadastro-funcionario.js"></script> Funcionario/Funcionario.js -->
+    <!-- <script type="module" src="Cliente/Cliente.js"></script> -->
+    <!-- <script type="module" src="Pedido/Pedido.js"></script> -->
+    <script type="module" src="../produtos/produto.js"></script> <!-- Produto/Produto.js -->
+    <!-- <script type="module" src="Eventos.js"></script> -->
 </body>
 </html>

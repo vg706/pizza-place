@@ -1,5 +1,5 @@
 // Pedido.js
-import { parseConfig } from './parseConfig';
+import { parseConfig } from '../../parseConfig';
 
 parseConfig();
 

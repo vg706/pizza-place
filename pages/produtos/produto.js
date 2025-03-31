@@ -1,7 +1,12 @@
 // Produto.js
-import { parseConfig } from './parseConfig';
+// import { parseConfig } from '../parseConfig.js';
 
-parseConfig();
+// parseConfig();
+Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
+Parse.serverURL = 'https://parseapi.back4app.com';
+
+const listaPizzas = document.getElementById("listaPizzas");
+const listaBebidas = document.getElementById("listaBebidas");
 
 export const registrarProduto = async (nome, preco, quantidade) => {
     try {
@@ -22,20 +27,39 @@ export const registrarProduto = async (nome, preco, quantidade) => {
     }
 };
 
-export const listarProdutos = async () => {
+async function listarPizzas() {
     try {
-        const Produto = Parse.Object.extend('Produto');
-        const query = new Parse.Query(Produto);
-        
-        const produtos = await query.find();
-        console.log(`Encontrados ${produtos.length} produtos`);
-        return produtos;
+        const Pizza = Parse.Object.extend("Produto");
+        const query = new Parse.Query(Pizza);
+        const pizzas = await query.find();
+
+        pizzas.forEach((element) => {
+            const div = document.createElement("div");
+            div.textContent = `${element.get("nomeProduto")}`;
+            listaPizzas.appendChild(div);
+        });
     } catch (error) {
         console.error('Erro ao listar produtos:', error);
         throw error;
     }
 };
 
+async function listarBebidas() {
+    try {
+        const Bebida = Parse.Object.extend("Bebida");
+        const query = new Parse.Query(Bebida);
+        const bebidas = await query.find();
+
+        bebidas.forEach((element) => {
+            const div = document.createElement("div");
+            div.textContent = `${element.get("nomeBebida")}`;
+            listaBebidas.appendChild(div);
+        });
+    } catch (error) {
+        console.error('Erro ao listar bebidas:', error);
+        throw error;
+    }
+};
 export const atualizarQuantidadeProduto = async (produtoId, novaQuantidade) => {
     try {
         const Produto = Parse.Object.extend('Produto');
@@ -52,4 +76,9 @@ export const atualizarQuantidadeProduto = async (produtoId, novaQuantidade) => {
         console.error('Erro ao atualizar quantidade:', error);
         throw error;
     }
+};
+
+window.onload = function() {
+    listarPizzas();
+    listarBebidas();
 };
