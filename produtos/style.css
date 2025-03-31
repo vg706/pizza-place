@@ -1,0 +1,153 @@
+/* Estilos gerais */
+:root {
+  --primary-color: #d32f2f;
+  --secondary-color: #ffcdd2;
+  --accent-color: #b71c1c;
+  --text-color: #333;
+  --light-text: #fff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Layout de container principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Estilo para componentes/seções */
+#loginFuncionario, 
+#loginCliente, 
+#registroPedidos, 
+#gerenciamentoPedidos, 
+#gerenciamentoProdutos,
+form#formProduto {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  box-shadow: var(--box-shadow);
+  margin-bottom: 20px;
+}
+
+/* Cabeçalhos */
+h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+h3 {
+  color: var(--accent-color);
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+/* Campos de formulário */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Botões */
+button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+}
+
+/* Listas */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  border-left: 3px solid var(--primary-color);
+}
+
+/* Campos de formulários agrupados */
+div > div {
+  margin-bottom: 15px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  
+  input, button {
+    width: 100%;
+  }
+}
+
+/* Pizza Logo (se você quiser adicionar um logo) */
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo h1 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
+
+.logo-tagline {
+  color: var(--accent-color);
+  font-style: italic;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}

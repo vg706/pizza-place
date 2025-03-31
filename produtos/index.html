@@ -4,74 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Place</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="loginFuncionario">
-        <h2>Login Funcionário</h2>
-        <input type="email" id="emailFuncionario" placeholder="E-mail">
-        <input type="password" id="senhaFuncionario" placeholder="Senha">
-        <button id="loginFuncionarioBtn">Entrar</button>
+    <div class="logo">
+        <h1>Pizza Place</h1>
+        <p class="logo-tagline">Sabor e qualidade em cada fatia</p>
     </div>
 
-    <div id="loginCliente">
-        <h2>Login Cliente</h2>
-        <input type="email" id="emailCliente" placeholder="E-mail">
-        <input type="password" id="senhaCliente" placeholder="Senha">
-        <button id="loginClienteBtn">Entrar</button>
-    </div>
+    <div class="container">
+        <div id="loginFuncionario" class="fade-in">
+            <h2>Login Funcionário</h2>
+            <div>
+                <label for="emailFuncionario">E-mail:</label>
+                <input type="email" id="emailFuncionario" placeholder="Digite seu e-mail">
+            </div>
+            <div>
+                <label for="senhaFuncionario">Senha:</label>
+                <input type="password" id="senhaFuncionario" placeholder="Digite sua senha">
+            </div>
+            <button id="loginFuncionarioBtn">Entrar</button>
+        </div>
 
-    <div id="registroPedidos">
-        <h2>Registro de Pedido</h2>
-        <div>
-            <label for="clienteId">ID do Cliente:</label>
-            <input type="text" id="clienteId" placeholder="ID do cliente">
+        <div id="loginCliente" class="fade-in">
+            <h2>Login Cliente</h2>
+            <div>
+                <label for="emailCliente">E-mail:</label>
+                <input type="email" id="emailCliente" placeholder="Digite seu e-mail">
+            </div>
+            <div>
+                <label for="senhaCliente">Senha:</label>
+                <input type="password" id="senhaCliente" placeholder="Digite sua senha">
+            </div>
+            <button id="loginClienteBtn">Entrar</button>
         </div>
-        <div>
-            <label for="endereco">Endereço de Entrega:</label>
-            <input type="text" id="endereco" placeholder="Endereço completo">
-        </div>
-        <button id="registrarPedidoBtn">Registrar Pedido</button>
-    </div>
-    
-    <div id="gerenciamentoPedidos">
-        <h2>Gerenciamento de Pedidos</h2>
-        <div>
-            <label for="clienteIdBusca">Buscar Pedidos do Cliente:</label>
-            <input type="text" id="clienteIdBusca" placeholder="ID do cliente">
-            <button id="listarPedidosBtn">Buscar Pedidos</button>
-        </div>
-        <ul id="listaPedidos"></ul>
-    </div>
 
-    <div id="gerenciamentoProdutos">
-        <h2>Gerenciamento de Produtos</h2>
+        <div id="registroPedidos" class="fade-in">
+            <h2>Registro de Pedido</h2>
+            <div>
+                <label for="clienteId">ID do Cliente:</label>
+                <input type="text" id="clienteId" placeholder="ID do cliente">
+            </div>
+            <div>
+                <label for="endereco">Endereço de Entrega:</label>
+                <input type="text" id="endereco" placeholder="Endereço completo">
+            </div>
+            <button id="registrarPedidoBtn">Registrar Pedido</button>
+        </div>
         
-        <form id="formProduto">
-            <h3>Cadastrar Novo Produto</h3>
+        <div id="gerenciamentoPedidos" class="fade-in">
+            <h2>Gerenciamento de Pedidos</h2>
             <div>
-                <label for="nomeProduto">Nome:</label>
-                <input type="text" id="nomeProduto" required>
+                <label for="clienteIdBusca">Buscar Pedidos do Cliente:</label>
+                <input type="text" id="clienteIdBusca" placeholder="ID do cliente">
+                <button id="listarPedidosBtn">Buscar Pedidos</button>
             </div>
+            <ul id="listaPedidos"></ul>
+        </div>
+
+        <div id="gerenciamentoProdutos" class="fade-in">
+            <h2>Gerenciamento de Produtos</h2>
+            
+            <form id="formProduto">
+                <h3>Cadastrar Novo Produto</h3>
+                <div>
+                    <label for="nomeProduto">Nome:</label>
+                    <input type="text" id="nomeProduto" required>
+                </div>
+                <div>
+                    <label for="precoProduto">Preço (R$):</label>
+                    <input type="number" id="precoProduto" step="0.01" min="0" required>
+                </div>
+                <div>
+                    <label for="quantidadeProduto">Quantidade em Estoque:</label>
+                    <input type="number" id="quantidadeProduto" min="0" required>
+                </div>
+                <button type="button" id="registrarProdutoBtn">Cadastrar Produto</button>
+            </form>
+            
             <div>
-                <label for="precoProduto">Preço (R$):</label>
-                <input type="number" id="precoProduto" step="0.01" min="0" required>
+                <h3>Produtos em Estoque</h3>
+                <button id="listarProdutosBtn">Mostrar Produtos</button>
+                <ul id="listaProdutos"></ul>
             </div>
-            <div>
-                <label for="quantidadeProduto">Quantidade em Estoque:</label>
-                <input type="number" id="quantidadeProduto" min="0" required>
-            </div>
-            <button type="button" id="registrarProdutoBtn">Cadastrar Produto</button>
-        </form>
-        
-        <div>
-            <h3>Produtos em Estoque</h3>
-            <button id="listarProdutosBtn">Mostrar Produtos</button>
-            <ul id="listaProdutos"></ul>
         </div>
     </div>
 
-<script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-<script src="app.js"></script>
-<script src="produtos/produtos.js"></script>
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <script type="module" src="Funcionario/Funcionario.js"></script>
+    <script type="module" src="Cliente/Cliente.js"></script>
+    <script type="module" src="Pedido/Pedido.js"></script>
+    <script type="module" src="Produto/Produto.js"></script>
+    <script type="module" src="Eventos.js"></script>
 </body>
 </html>
