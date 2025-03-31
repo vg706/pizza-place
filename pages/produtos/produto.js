@@ -60,6 +60,7 @@ async function listarBebidas() {
         throw error;
     }
 };
+
 export const atualizarQuantidadeProduto = async (produtoId, novaQuantidade) => {
     try {
         const Produto = Parse.Object.extend('Produto');

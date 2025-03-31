@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <title>Login</title>
+    <title>Cadastro</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #050844;">
@@ -31,21 +31,25 @@
     </nav>
     <div>
         <h1 class="p-3">
-            Seja nosso cliente!
+            Cadastre-se:
         </h1>
     </div>
     <form id="form-login" class="p-3">
         <p>
+            <label for="nome-usuario">Nome:</label>
+            <input type="text" name="email-usuario" id="nome-usuario" required>
+        </p>
+        <p>
             <label for="email-usuario">Email:</label>
-            <input type="text" name="email-usuario" id="email-usuario">
+            <input type="text" name="email-usuario" id="email-usuario" required>
         </p>
         <p>
             <label for="senha-usuario">Senha:</label>
-            <input type="password" name="senha-usuario" id="senha-usuario">
+            <input type="password" name="senha-usuario" id="senha-usuario" required>
         </p>
-        <button id="login-btn" class="p-3" type="submit">Entrar</button>
+        <button id="login-btn" class="p-3" type="submit">Cadastrar</button>
     </form>
 </body>
 <script src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-<script type="module" src="../login-cliente/login-cliente.js"></script>
+<script type="module" src="../cadastro-cliente/cadastro-cliente.js"></script>
 </html>

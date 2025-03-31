@@ -1,22 +1,36 @@
-import { parseConfig } from '../../parseConfig';
+// import { parseConfig } from '../../parseConfig';
 
-parseConfig();
+// parseConfig();
+Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
+Parse.serverURL = 'https://parseapi.back4app.com';
 
-export const registrarCliente = async (nome, email, senha, telefone) => {
+
+async function registrarCliente(nome, email, senha) {
+    const Cliente = Parse.Object.extend("Cliente");
+    const novoCliente = new Cliente();
+
+    novoCliente.set('Nome', nome);
+    novoCliente.set('Email', email);
+    novoCliente.set('Senha', senha);
+        
     try {
-        const Cliente = Parse.Object.extend('Cliente');
-        const novoCliente = new Cliente();
-        
-        novoCliente.set('nome', nome);
-        novoCliente.set('email', email);
-        novoCliente.set('senha', senha);
-        novoCliente.set('telefone', telefone);
-        
-        const clienteSalvo = await novoCliente.save();
+        await novoCliente.save();
         console.log('Cliente registrado com sucesso');
-        return clienteSalvo;
+        return novoCliente;
     } catch (error) {
         console.error('Erro no registro de cliente:', error);
         throw error;
     }
+    
 };
+const formLogin = document.getElementById("form-login");
+
+formLogin.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var nomeCliente = document.getElementById("nome-usuario").value;
+    var emailCliente = document.getElementById("email-usuario").value;
+    var senhaCliente = document.getElementById("senha-usuario").value;
+    registrarCliente(nomeCliente, emailCliente, senhaCliente);
+});
+
+

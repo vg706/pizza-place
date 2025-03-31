@@ -1,22 +1,40 @@
-import { parseConfig } from '../../parseConfig.js';
+// import { parseConfig } from '../../parseConfig';
 
-parseConfig();
+// parseConfig();
+Parse.initialize("HOa7pu3hNfi3xCUSkKzclVZl4XtxwHjlb5odaGdO", "xwV9q0OLSs0fIKYJqqUJsHPrNqPLVsSLAB0DkoZc");
+Parse.serverURL = 'https://parseapi.back4app.com';
 
-export const registrarFuncionario = async (nome, email, senha, cargo) => {
+
+async function registrarFuncionario(nome, email, senha) {
+    const Funcionario = Parse.Object.extend("Funcionario");
+    const novoFuncionario = new Funcionario();
+
+    novoFuncionario.set('Nome', nome);
+    novoFuncionario.set('Email', email);
+    novoFuncionario.set('Senha', senha);
+        
     try {
-        const Funcionario = Parse.Object.extend('Funcionario');
-        const novoFuncionario = new Funcionario();
-        
-        novoFuncionario.set('nome', nome);
-        novoFuncionario.set('email', email);
-        novoFuncionario.set('senha', senha); 
-        novoFuncionario.set('cargo', cargo);
-        
-        const funcionarioSalvo = await novoFuncionario.save();
-        console.log('Funcionário registrado com sucesso');
-        return funcionarioSalvo;
+        await novoFuncionario.save();
+        console.log('Cliente registrado com sucesso');
+        return novoFuncionario;
     } catch (error) {
-        console.error('Erro no registro de funcionário:', error);
+        console.error('Erro no registro de cliente:', error);
         throw error;
     }
+    
 };
+const formLogin = document.getElementById("form-login");
+
+formLogin.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var nomeFuncionario = document.getElementById("nome-funcionario").value.trim();
+    var emailFuncionario = document.getElementById("email-funcionario").value.trim();
+    var senhaFuncionario = document.getElementById("senha-funcionario").value.trim();
+    if (!nomeFuncionario || !emailFuncionario || !senhaFuncionario) {
+        alert("Por favor, preencha todos os campos!");
+        return;
+    }
+    registrarFuncionario(nomeFuncionario, emailFuncionario, senhaFuncionario);
+});
+
+
