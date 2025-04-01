@@ -16,6 +16,7 @@ async function registrarCliente(nome, email, senha) {
     try {
         await novoCliente.save();
         console.log('Cliente registrado com sucesso');
+        window.location.href = '../login-cliente/index.html';
         return novoCliente;
     } catch (error) {
         console.error('Erro no registro de cliente:', error);
